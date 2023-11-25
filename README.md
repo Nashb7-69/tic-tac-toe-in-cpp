@@ -8,3 +8,5 @@ how did i make the win and lose thing
 with a bunch of if else 
 and yah 
 the code is so sample to be explained
+https://youtu.be/99dsASGqjB4
+thats a veido to expline this shitty code!
