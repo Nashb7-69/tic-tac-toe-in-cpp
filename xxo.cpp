@@ -2,99 +2,101 @@
 #include <ctime>
 using namespace std;
 void drawboard(char *speaces);
-//* here i draw my board!
-void playermove(char *speaces,char plyaer);
-void compuermove(char *speaces, char computer);
-bool checkwinner(char *speaces,char player, char computer);
+void playermove(char *speaces, char player, int &numb);
+void compuermove(char *speaces, char computer, char player, int playerMove);
+bool checkwinner(char *speaces, char player, char computer);
 bool checktie(char *speaces);
-int main(){
 
-char speaces[9]={ ' ',' ',' ',' ',' ',' ',' ',' ',' '};
-//! we used empty space to be more ez to deal with
-char player ='X';
-char computer = 'O';
-bool running = true;
+int main() {
+    int x;
+    char speaces[9] = {' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '};
+    char player = 'X';
+    char computer = 'O';
+    bool running = true;
+    int playerMove;
 
+    cout << "************* Welcome to the worst tic tac toe game ever *************\n\n";
+    cout << "if you want to play enter 1\n";
+    cout << "if not enter 0 \n";
+    cin >> x;
 
-drawboard (speaces);
+    if (x == 0) {
+        cout << "Wise choice sir Wise choice ";
+        return 0;
+    } else if (x == 1) {
+        cout << endl;
+    } else {
+        cout << "error game will crush (it's not an error but don't play smart on me ):< )";
+        return 0;
+    }
 
- while(running){
-      playermove(speaces,player);
-      drawboard (speaces);
-      if( checkwinner(speaces, player, computer)){
-      running=false;
-      break;
+    drawboard(speaces);
 
-      }
-         else if (checktie(speaces)){
-            running=false;
+    while (running) {
+        playermove(speaces, player, playerMove);
+        drawboard(speaces);
+        if (checkwinner(speaces, player, computer)) {
+            running = false;
             break;
-         }
-      compuermove(speaces,computer);
-      drawboard (speaces);
-       if( checkwinner(speaces, player, computer)){
-      running=false;
-      break;
-
-      }
-         else if (checktie(speaces)){
-            running=false;
+        } else if (checktie(speaces)) {
+            running = false;
             break;
-         }
- } 
- cout<<"thx for playing this bad game!!!!!!";
+        }
+        compuermove(speaces, computer, player, playerMove);
+        drawboard(speaces);
+        if (checkwinner(speaces, player, computer)) {
+            running = false;
+            break;
+        } else if (checktie(speaces)) {
+            running = false;
+            break;
+        }
+    }
+
+    cout << "Thanks for playing this bad game!!!!!!";
 }
 
-
-void drawboard(char *speaces){
-
-   cout<<endl;
-   cout<< "     |     |      "<<endl;
-   cout<< "  " << speaces[0] << "  |  "  << speaces[1] <<  "  |  "<< speaces[2] << "  " <<endl;
-   cout<< "_____|_____|_____"<<endl;
-   cout<< "     |     |      "<<endl;
-   cout<< "  " << speaces[3] << "  |  "  << speaces[4] <<  "  |  "<< speaces[5] << "  " <<endl;
-    cout<< "_____|_____|_____"<<endl;
-    cout<< "     |     |      "<<endl;
-    cout<< "  " << speaces[6] << "  |  "  << speaces[7] <<  "  |  "<< speaces[8] << "   "<<endl;
-   cout<<endl;
+void drawboard(char *speaces) {
+    cout << endl;
+    cout << "     |     |      " << endl;
+    cout << "  " << speaces[0] << "  |  " << speaces[1] << "  |  " << speaces[2] << "  " << endl;
+    cout << "_____|_____|_____" << endl;
+    cout << "     |     |      " << endl;
+    cout << "  " << speaces[3] << "  |  " << speaces[4] << "  |  " << speaces[5] << "  " << endl;
+    cout << "_____|_____|_____" << endl;
+    cout << "     |     |      " << endl;
+    cout << "  " << speaces[6] << "  |  " << speaces[7] << "  |  " << speaces[8] << "   " << endl;
+    cout << endl;
 }
-   
-   
-    void playermove(char *speaces,char plyaer){
-   int numb ;
-   do{
-    cout<<"enter a spot to place marker (1-9): "; 
-    cin>>numb;
-    numb-- ;
-    if(speaces[numb]= ' '){
-     speaces[numb]= plyaer;
-     break;
-    }
-   }
-   while (numb <= 0 || numb > 8);{
 
-
-   }
-   
-
-
-    }
-       void compuermove(char *speaces, char computer){
-         int number;
-         srand(time(0));
-          while (true)
-          {
-            number= rand() %9;
-            if(speaces[number]=' '){
-            speaces[number]=computer;
+void playermove(char *speaces, char player, int &numb) {
+    do {
+        cout << "enter a spot to place marker (1-9): ";
+        cin >> numb;
+        numb--;
+        if (speaces[numb] == ' ') {
+            speaces[numb] = player;
             break;
-            }
-          }
-          
+        }
+    } while (numb < 0 || numb > 8);
+}
 
-       }
-         bool checkwinner(char *speaces,char player, char computer){
+void compuermove(char *speaces, char computer, char player, int playerMove) {
+    int number;
+    srand(time(0));
+
+    // Use the player's move in the logic if needed
+
+    // Generate random numbers until a valid move is found
+    do {
+        number = rand() % 9;
+    } while (speaces[number] != ' ' || number == playerMove);
+
+    cout << "Computer's move: " << number + 1 << endl;  // Print the computer's move
+    speaces[number] = computer;
+}
+
+bool checkwinner(char *speaces, char player, char computer) {
           //اول ثلاث هي اعمده ثاني ثلاث هي صفوف الباقي زوايا 
          if((speaces[0] != ' ') && (speaces[0] == speaces[1]) && (speaces[1] == speaces[2]))
 
