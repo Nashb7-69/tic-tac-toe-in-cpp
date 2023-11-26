@@ -81,19 +81,26 @@ void playermove(char *speaces, char player, int &numb) {
     } while (numb < 0 || numb > 8);
 }
 
-void compuermove(char *speaces, char computer, char player, int playerMove) {
+void compuermove(char *speaces, char computer, char player, int numb) {
     int number;
-    srand(time(0));
+         srand(time(0));
+         do{
 
-    // Use the player's move in the logic if needed
+         
+          while (true)
+          {
+            number= rand() %9;
+            if(speaces[number]=' '){
+            speaces[number]=computer;
+            break;
+            }}
+}
 
-    // Generate random numbers until a valid move is found
-    do {
-        number = rand() % 9;
-    } while (speaces[number] != ' ' || number == playerMove);
+while(numb < 0 || numb > 8);
+//انا عبقري
+ {
 
-    cout << "Computer's move: " << number + 1 << endl;  // Print the computer's move
-    speaces[number] = computer;
+}
 }
 
 bool checkwinner(char *speaces, char player, char computer) {
